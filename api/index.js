@@ -19,7 +19,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://rushikeshphadtare2003:AkHYfof7P0i1gDK5@cluster0.gqzhc9w.mongodb.net/blog');
+//mongoose.connect('mongodb+srv://rushikeshphadtare2003:AkHYfof7P0i1gDK5@cluster0.gqzhc9w.mongodb.net/blog');
+async function connectToDatabase() {
+  try {
+    await mongoose.connect('mongodb+srv://rushikeshphadtare2003:AkHYfof7P0i1gDK5@cluster0.gqzhc9w.mongodb.net/blog');
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
+}
+
+connectToDatabase();
 
 app.post('/register', async (req,res) => {
   const {username,password} = req.body;
